@@ -33,10 +33,12 @@ jobs:
         with:
           # runs 'bundle install' and caches installed gems automatically
           bundler-cache: true
+
       - name: Set up Node
         uses: actions/setup-node@v2
         with:
           node-version: "16"
+
       - name: Get Yarn cache directory path
         id: yarn-cache
         run: echo "::set-output name=dir::$(yarn cache dir)"
@@ -48,7 +50,7 @@ jobs:
       - name: Yarn install
         run: yarn install --frozen-lockfile
       - name: Prepare DB
-        run: |
+        run: | # pipe adds line breaks
           cp config/database.github.yml config/database.yml
           bundle exec rails db:create db:migrate
       - name: Run model tests
